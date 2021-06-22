@@ -41,6 +41,7 @@ namespace ChatServer
                     TcpClient tcpClient = tcpListener.AcceptTcpClient();
                     string message = GetMessage(tcpClient.GetStream());
                     Byte[] responseData = Encoding.UTF8.GetBytes("1");
+             
                     foreach (var item in names)
                     {
                         if (item == message)
@@ -49,13 +50,16 @@ namespace ChatServer
                         }
                     }
                     tcpClient.GetStream().Write(responseData, 0, responseData.Length);
-                    if (responseData == Encoding.UTF8.GetBytes("1"))
+                    
+                    if (responseData[0] == Encoding.UTF8.GetBytes("1")[0])
                     {
+                        names.Add(message);
                         ClientObject clientObject = new ClientObject(tcpClient, this);
                         Thread clientThread = new Thread(new ThreadStart(clientObject.Process));
 
                         clientThread.Start();
                     }
+                    Console.WriteLine("Данное имя занято");
                 }
             }
             catch(Exception ex)

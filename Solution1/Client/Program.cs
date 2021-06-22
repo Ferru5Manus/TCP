@@ -2,7 +2,8 @@
 using System.Threading;
 using System.Net.Sockets;
 using System.Text;
- 
+using System.Xml;
+
 namespace ChatClient
 {
     class Program
@@ -15,7 +16,7 @@ namespace ChatClient
  
         static void Main(string[] args)
         {
-            string userName;
+            
             while (true)
             {
                 Console.Write("Введите свое имя: ");
@@ -41,9 +42,10 @@ namespace ChatClient
                 }
                 while (stream.DataAvailable);
                 responseData = completeMessage.ToString();
-                
+                Console.WriteLine(responseData);
                 if (responseData== "1")
                 {
+                    
                     break;
                 }
                 else
@@ -52,19 +54,17 @@ namespace ChatClient
                 }
                     
             }
+            
             try
             {
-                client.Connect(host, port); //подключение клиента
-                stream = client.GetStream(); // получаем поток
- 
-                string message = userName;
-                byte[] data = Encoding.Unicode.GetBytes(message);
-                stream.Write(data, 0, data.Length);
+                
+               
  
                 // запускаем новый поток для получения данных
                 Thread receiveThread = new Thread(new ThreadStart(ReceiveMessage));
                 receiveThread.Start(); //старт потока
                 Console.WriteLine("Добро пожаловать, {0}", userName);
+                
                 SendMessage();
             }
             catch (Exception ex)
