@@ -43,10 +43,20 @@ namespace ChatServer
                 {
                     try
                     {
+                        
                         message = GetMessage();
-                        message = String.Format("{0}: {1}", userName, message);
-                        Console.WriteLine(message);
-                        server.BroadcastMessage(message, this.Id);
+                        if (message == "$disconnect")
+                        {
+                            Console.WriteLine("{0}: покинул чат", userName);
+                        }
+                        else if (message != "")
+                        {
+                            message = String.Format("{0}: {1}", userName, message);
+                            Console.WriteLine(message);
+                            server.BroadcastMessage(message, this.Id);
+                            
+                        }
+                        
                     }
                     catch
                     {
@@ -81,7 +91,7 @@ namespace ChatServer
                 builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
             }
             while (Stream.DataAvailable);
- 
+            
             return builder.ToString();
         }
  

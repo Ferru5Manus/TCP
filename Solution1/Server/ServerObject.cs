@@ -45,11 +45,11 @@ namespace ChatServer
                     {
                         if (item == message)
                         {
-                            responseData = Encoding.UTF8.GetBytes("0");
+                            responseData[0] = Encoding.UTF8.GetBytes("0")[0];
                         }
                     }
                     tcpClient.GetStream().Write(responseData, 0, responseData.Length);
-                    if (responseData == Encoding.UTF8.GetBytes("1"))
+                    if (responseData[0] == Encoding.UTF8.GetBytes("1")[0])
                     {
                         ClientObject clientObject = new ClientObject(tcpClient, this);
                         Thread clientThread = new Thread(new ThreadStart(clientObject.Process));

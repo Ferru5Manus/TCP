@@ -54,8 +54,7 @@ namespace ChatClient
             }
             try
             {
-                client.Connect(host, port); //подключение клиента
-                stream = client.GetStream(); // получаем поток
+                
  
                 string message = userName;
                 byte[] data = Encoding.Unicode.GetBytes(message);
@@ -80,12 +79,19 @@ namespace ChatClient
         static void SendMessage()
         {
             Console.WriteLine("Введите сообщение: ");
-             
+            Console.WriteLine("Перед закрытием приложения пожалуйста отключитесь от сервера с помощью команды $disconnect");
             while (true)
             {
                 string message = Console.ReadLine();
                 byte[] data = Encoding.Unicode.GetBytes(message);
                 stream.Write(data, 0, data.Length);
+                if (message == "$disconnect")
+                {
+                    Disconnect();
+                  
+                }
+                
+                
             }
         }
         // получение сообщений
