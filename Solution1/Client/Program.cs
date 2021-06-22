@@ -8,14 +8,17 @@ namespace ChatClient
     class Program
     {
         static string userName;
-        private const string host = "127.0.0.1";
-        private const int port = 13000;
+        public static string host;
+        public static int port;
         static TcpClient client;
         static NetworkStream stream;
  
         static void Main(string[] args)
         {
-            
+            Console.WriteLine("Введите айпи сервера");
+            host = Console.ReadLine();
+            Console.WriteLine("Введите порт");
+            port = Convert.ToInt32(Console.ReadLine());
             while (true)
             {
                 Console.Write("Введите свое имя: ");
