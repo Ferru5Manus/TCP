@@ -9,13 +9,15 @@ namespace ChatClient
     class Program
     {
         static string userName;
-        private const string host = "127.0.0.1";
+        public static string host;
         private const int port = 13000;
         static TcpClient client;
         static NetworkStream stream;
  
         static void Main(string[] args)
         {
+            Console.WriteLine("Введите ip адрес");
+            host = Console.ReadLine();
             
             while (true)
             {
@@ -42,7 +44,7 @@ namespace ChatClient
                 }
                 while (stream.DataAvailable);
                 responseData = completeMessage.ToString();
-                Console.WriteLine(responseData);
+                
                 if (responseData== "1")
                 {
                     
@@ -50,6 +52,7 @@ namespace ChatClient
                 }
                 else
                 {
+                    Console.WriteLine("Данное имя занято");
                     client.Dispose();
                 }
                     
