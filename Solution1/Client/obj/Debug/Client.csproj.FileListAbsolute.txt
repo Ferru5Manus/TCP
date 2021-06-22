@@ -1,0 +1,6 @@
+/home/roman/TCP/Solution1/Client/bin/Debug/Client.exe
+/home/roman/TCP/Solution1/Client/bin/Debug/Client.pdb
+/home/roman/TCP/Solution1/Client/obj/Debug/Client.csproj.AssemblyReference.cache
+/home/roman/TCP/Solution1/Client/obj/Debug/Client.csproj.CoreCompileInputs.cache
+/home/roman/TCP/Solution1/Client/obj/Debug/Client.exe
+/home/roman/TCP/Solution1/Client/obj/Debug/Client.pdb
