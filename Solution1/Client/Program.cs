@@ -2,22 +2,19 @@
 using System.Threading;
 using System.Net.Sockets;
 using System.Text;
-using System.Xml;
-
+ 
 namespace ChatClient
 {
     class Program
     {
         static string userName;
-        public static string host;
+        private const string host = "127.0.0.1";
         private const int port = 13000;
         static TcpClient client;
         static NetworkStream stream;
  
         static void Main(string[] args)
         {
-            Console.WriteLine("Введите ip адрес");
-            host = Console.ReadLine();
             
             while (true)
             {
@@ -47,27 +44,27 @@ namespace ChatClient
                 
                 if (responseData== "1")
                 {
-                    
                     break;
                 }
                 else
                 {
-                    Console.WriteLine("Данное имя занято");
                     client.Dispose();
                 }
                     
             }
-            
             try
             {
-                
-               
+                client.Connect(host, port); //подключение клиента
+                stream = client.GetStream(); // получаем поток
+ 
+                string message = userName;
+                byte[] data = Encoding.Unicode.GetBytes(message);
+                stream.Write(data, 0, data.Length);
  
                 // запускаем новый поток для получения данных
                 Thread receiveThread = new Thread(new ThreadStart(ReceiveMessage));
                 receiveThread.Start(); //старт потока
                 Console.WriteLine("Добро пожаловать, {0}", userName);
-                
                 SendMessage();
             }
             catch (Exception ex)
